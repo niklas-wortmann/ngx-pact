@@ -1,0 +1,88 @@
+{
+  "name": "ngx-pact-repo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Repository for the pact schematics for angular projects.",
+  "scripts": {
+    "release": "standard-version",
+    "ng": "ng",
+    "build": "ng build --prod",
+    "build:lib": "ng build ngx-pact",
+    "start": "ng serve",
+    "test": "ng test",
+    "lint": "tslint ./src/**/*.ts -t verbose",
+    "e2e": "ng e2e",
+    "commit": "npx git-cz"
+  },
+  "keywords": [],
+  "author": "Jan-Niklas Wortmann <6104311+JWO719@users.noreply.github.com>",
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@angular/animations": "~9.0.6",
+    "@angular/common": "~9.0.6",
+    "@angular/compiler": "~9.0.6",
+    "@angular/core": "~9.0.6",
+    "@angular/forms": "~9.0.6",
+    "@angular/platform-browser": "~9.0.6",
+    "@angular/platform-browser-dynamic": "~9.0.6",
+    "@angular/router": "~9.0.6",
+    "@angular/upgrade": "~9.0.6",
+    "angular-in-memory-web-api": "~0.9.0",
+    "core-js": "^2.5.4",
+    "ngx-semantic-version": "^1.2.1",
+    "rxjs": "~6.5.4",
+    "zone.js": "~0.10.3"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.900.6",
+    "@angular/cli": "~9.0.6",
+    "@angular/compiler-cli": "~9.0.6",
+    "@angular/platform-server": "~9.0.6",
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "@types/jasmine": "~3.5.0",
+    "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^12.11.1",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.0.2",
+    "husky": "^3.0.9",
+    "jasmine-core": "~3.5.0",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "~4.3.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage-istanbul-reporter": "~2.1.0",
+    "karma-jasmine": "~2.0.1",
+    "karma-jasmine-html-reporter": "^1.4.2",
+    "lint-staged": "^10.0.9",
+    "lodash": "^4.16.2",
+    "prettier": "^1.19.1",
+    "protractor": "~5.4.3",
+    "standard-version": "^7.0.0",
+    "ts-node": "~8.3.0",
+    "tslint": "~5.18.0",
+    "typescript": "~3.7.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JWO719/ngx-pact"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "{src, projects}/**/*.ts": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
