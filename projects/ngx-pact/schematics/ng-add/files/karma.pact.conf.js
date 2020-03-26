@@ -23,11 +23,11 @@ module.exports = function(config) {
     },
     pact: [
       {
-        port: 1234,
-        consumer: 'some-consumer',
-        provider: 'some-provider',
-        dir: 'pact/files/go/here',
-        log: 'log/files/go/here'
+        port: <%= port %>,
+        consumer: <%= consumer || project %>,
+        provider: <%= provider %>,
+        dir: <%= dir %>,
+        log: <%= log %>
       }
     ],
     reporters: ['progress', 'kjhtml'],

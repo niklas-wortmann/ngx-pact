@@ -17,7 +17,45 @@
     "project": {
       "type": "string",
       "description": "The name of the project.",
-      "aliases": ["p"]
+      "aliases": ["p"],
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "port": {
+      "type": "number",
+      "description": "The port of the pact server, defaults to 1234.",
+      "default": 1234
+    },
+    "consumer": {
+      "type": "string",
+      "description": "The name of that consumer, defaults to project name",
+      "aliases": ["c"]
+    },
+    "provider": {
+      "type": "string",
+      "description": "The name of the provider, defaults to `some-provider`",
+      "default": "some-provider"
+    },
+    "dir": {
+      "type": "string",
+      "description": "The directory of the pact files, defaults to `./pact`",
+      "default": "./pact",
+      "aliases": ["d"]
+    },
+    "log": {
+      "type": "string",
+      "description": "The directory of the log files, defaults to ``",
+      "default": "",
+      "aliases": ["l"]
+    },
+    "pactBinaryLocation": {
+      "type": "string",
+      "description": "The directory of the pact binary"
+    },
+    "pactDoNotTrack": {
+      "type": "boolean",
+      "description": "In order to get better statistics as to who is using Pact, pact-node has an anonymous tracking event that triggers when Pact installs for the first time"
     }
   }
 }

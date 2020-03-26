@@ -4,14 +4,38 @@ import {
   Tree,
   chain,
   noop,
-  SchematicsException
+  url,
+  SchematicsException,
+  template,
+  apply,
+  mergeWith
 } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import { addPactDependencies } from './utils/package';
+import {
+  addPactDependencies,
+  addConfigObjectToPackageJson
+} from './utils/package';
 import { Schema } from './schema';
 import { getWorkspacePath } from './utils/config';
 import { getProject } from './utils/project';
 import { getWorkspace } from './utils/config';
+import { strings } from '@angular-devkit/core';
+
+const addPactConfigToPackageJSON = ({
+  pactBinaryLocation,
+  pactDoNotTrack
+}: Schema) => {
+  return (host: Tree, context: SchematicContext) => {
+    const config = {
+      ...(pactBinaryLocation
+        ? { pact_binary_location: pactBinaryLocation }
+        : {}),
+      ...(pactDoNotTrack ? { pact_do_not_track: true } : {})
+    };
+    addConfigObjectToPackageJson(host, config);
+    return host;
+  };
+};
 
 const updatePackageJSON = () => {
   return (host: Tree, context: SchematicContext) => {
@@ -50,11 +74,25 @@ const updateAngularJSON = (options: Schema) => {
   };
 };
 
+const copyKarmaConf = (options: Schema) => {
+  return (host: Tree) => {
+    const sourceTemplates = url('./files');
+    const parameterizedTemplate = apply(sourceTemplates, [
+      template({ ...options, ...strings })
+    ]);
+    return mergeWith(parameterizedTemplate);
+  };
+};
+
 export function ngAdd(options: Schema): Rule {
   return (tree: Tree, context: SchematicContext) => {
     return chain([
+      options.pactBinaryLocation || options.pactDoNotTrack
+        ? addPactConfigToPackageJSON(options)
+        : noop(),
       options.skipInstall ? noop() : updatePackageJSON(),
-      options.skipWorkspaceUpdate ? noop() : updateAngularJSON(options)
+      options.skipWorkspaceUpdate ? noop() : updateAngularJSON(options),
+      copyKarmaConf(options)
     ])(tree, context);
   };
 }

@@ -18,11 +18,12 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "target": "es6",
-    "types": ["jasmine", "node"]
+    "types": ["jest", "node"]
   },
   "include": ["schematics/**/*"],
   "exclude": [
     "schematics/*/files/**/*",
+    "schematics/*/files/*",
     "schematics/**/*.spec.ts",
     "schematics/testing/**/*"
   ]

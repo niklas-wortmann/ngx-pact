@@ -12,7 +12,14 @@ describe('ng-add Schematic', () => {
     path.join(__dirname, '../collection.json')
   );
   const defaultOptions: SchematicOptions = {
-    project: 'bar'
+    project: 'bar',
+    skipInstall: false,
+    skipWorkspaceUpdate: false,
+    port: 1234,
+    consumer: 'bar',
+    provider: 'foo',
+    dir: '',
+    log: ''
   };
 
   let appTree: UnitTestTree;

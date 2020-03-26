@@ -1,4 +1,4 @@
-import { Tree } from '@angular-devkit/schematics';
+import { Tree, SchematicsException } from '@angular-devkit/schematics';
 
 export function addPactDependencies(host: Tree) {
   addPackageToPackageJson(
@@ -28,19 +28,48 @@ export function addPackageToPackageJson(
   pkg: string,
   version: string
 ): Tree {
-  if (host.exists('package.json')) {
-    const sourceText = host.read('package.json')!.toString('utf-8');
-    const json = JSON.parse(sourceText);
-    if (!json[type]) {
-      json[type] = {};
-    }
+  assertPackageJsonExists(host);
+  const json = getPackageJson(host);
+  initializeKey(json, type);
 
-    if (!json[type][pkg]) {
-      json[type][pkg] = version;
-    }
-
-    host.overwrite('package.json', JSON.stringify(json, null, 2));
+  if (!json[type][pkg]) {
+    json[type][pkg] = version;
   }
 
+  host.overwrite('package.json', JSON.stringify(json, null, 2));
+
   return host;
+}
+
+export function addConfigObjectToPackageJson(
+  host: Tree,
+  config: { pact_do_not_track?: boolean; pact_binary_location?: string }
+): Tree {
+  assertPackageJsonExists(host);
+  const json = getPackageJson(host);
+  initializeKey(json, 'config');
+
+  json.config = { ...json.config, ...config };
+  host.overwrite('package.json', JSON.stringify(json, null, 2));
+
+  return host;
+}
+
+function initializeKey(json: any, type: string) {
+  if (!json[type]) {
+    json[type] = {};
+  }
+}
+
+function getPackageJson(host: Tree): any {
+  const sourceText = host.read('package.json')!.toString('utf-8');
+  return JSON.parse(sourceText);
+}
+
+function assertPackageJsonExists(host: Tree): void | never {
+  if (!host.exists('package.json')) {
+    throw new SchematicsException(
+      `package.json was not found in ${host.root.path}`
+    );
+  }
 }

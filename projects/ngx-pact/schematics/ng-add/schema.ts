@@ -1,5 +1,12 @@
 export interface Schema {
-  skipInstall?: boolean;
+  skipInstall: boolean;
   project: string;
-  skipWorkspaceUpdate?: boolean;
+  skipWorkspaceUpdate: boolean;
+  port: number;
+  consumer?: string;
+  provider: string;
+  dir: string;
+  log: string;
+  pactBinaryLocation?: string;
+  pactDoNotTrack?: boolean;
 }
