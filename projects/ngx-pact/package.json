@@ -2,6 +2,7 @@
   "name": "ngx-pact",
   "version": "0.0.1",
   "scripts": {
+    "release": "standard-version",
     "build": "../../node_modules/.bin/tsc -p tsconfig.schematics.json",
     "copy:schemas": "cp --parents schematics/*/schema.json ../../dist/ngx-pact/",
     "copy:files": "cp --parents -p schematics/*/files/** ../../dist/ngx-pact/",
