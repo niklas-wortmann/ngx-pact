@@ -25,7 +25,7 @@ const addPactConfigToPackageJSON = ({
   pactBinaryLocation,
   pactDoNotTrack
 }: Schema) => {
-  return (host: Tree, context: SchematicContext) => {
+  return (host: Tree) => {
     const config = {
       ...(pactBinaryLocation
         ? { pact_binary_location: pactBinaryLocation }
@@ -75,7 +75,7 @@ const updateAngularJSON = (options: Schema) => {
 };
 
 const copyKarmaConf = (options: Schema) => {
-  return (host: Tree) => {
+  return () => {
     const sourceTemplates = url('./files');
     const parameterizedTemplate = apply(sourceTemplates, [
       template({ ...options, ...strings })
