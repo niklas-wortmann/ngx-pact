@@ -34,7 +34,118 @@
           }
         }
       }
+    },
+    "pact-test": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/pact-test",
+      "sourceRoot": "projects/pact-test/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/pact-test",
+            "index": "projects/pact-test/src/index.html",
+            "main": "projects/pact-test/src/main.ts",
+            "polyfills": "projects/pact-test/src/polyfills.ts",
+            "tsConfig": "projects/pact-test/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/pact-test/src/favicon.ico",
+              "projects/pact-test/src/assets"
+            ],
+            "styles": ["projects/pact-test/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/pact-test/src/environments/environment.ts",
+                  "with": "projects/pact-test/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "pact-test:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "pact-test:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "pact-test:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/pact-test/src/test.ts",
+            "polyfills": "projects/pact-test/src/polyfills.ts",
+            "tsConfig": "projects/pact-test/tsconfig.spec.json",
+            "karmaConfig": "projects/pact-test/karma.conf.js",
+            "assets": [
+              "projects/pact-test/src/favicon.ico",
+              "projects/pact-test/src/assets"
+            ],
+            "styles": ["projects/pact-test/src/styles.css"],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/pact-test/tsconfig.app.json",
+              "projects/pact-test/tsconfig.spec.json",
+              "projects/pact-test/e2e/tsconfig.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/pact-test/e2e/protractor.conf.js",
+            "devServerTarget": "pact-test:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "pact-test:serve:production"
+            }
+          }
+        }
+      }
     }
   },
-  "defaultProject": "ngx-pact-example"
+  "defaultProject": "pact-test"
 }
