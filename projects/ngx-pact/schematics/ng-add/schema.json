@@ -12,7 +12,7 @@
     "skipWorkspaceUpdate": {
       "type": "boolean",
       "default": false,
-      "description": "Do not add update the project workspace (e.g., --skipWorkspaceUpdateskipWorkspaceUpdate)."
+      "description": "Do not update the project workspace (e.g., --skipWorkspaceUpdateskipWorkspaceUpdate)."
     },
     "project": {
       "type": "string",

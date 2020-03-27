@@ -11,7 +11,6 @@
     "start": "ng serve",
     "test": "ng test --project ngx-pact",
     "lint": "ng lint --project ngx-pact",
-    "e2e": "ng e2e",
     "commit": "npx git-cz"
   },
   "keywords": [],
@@ -60,7 +59,6 @@
     "lint-staged": "^10.0.9",
     "lodash": "^4.16.2",
     "prettier": "^1.19.1",
-    "protractor": "~5.4.3",
     "standard-version": "^7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~5.18.0",
