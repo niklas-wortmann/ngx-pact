@@ -12,7 +12,7 @@
     "test": "ng test --project ngx-pact",
     "lint": "ng lint --project ngx-pact",
     "commit": "npx git-cz",
-    "test:ng-add": "npm run build && schematics ./dist/ngx-pact/schematics/collection.json:ng-add --dry-run"
+    "test:ng-add": "npm run build && schematics ./dist/ngx-pact/schematics/collection.json:ng-add --debug=false"
   },
   "keywords": [],
   "author": "Jan-Niklas Wortmann <6104311+JWO719@users.noreply.github.com>",
@@ -44,9 +44,6 @@
     "@angular/platform-server": "~9.0.6",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
-    "@pact-foundation/karma-pact": "^2.3.1",
-    "@pact-foundation/pact-node": "^10.7.1",
-    "@pact-foundation/pact-web": "^9.8.2",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/jest": "^25.1.4",

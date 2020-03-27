@@ -24,10 +24,10 @@ module.exports = function(config) {
     pact: [
       {
         port: <%= port %>,
-        consumer: <%= consumer || project %>,
-        provider: <%= provider %>,
-        dir: <%= dir %>,
-        log: <%= log %>
+        consumer: '<%= consumer || project %>',
+        provider: '<%= provider %>',
+        dir: '<%= dir %>',
+        log: '<%= log %>'
       }
     ],
     reporters: ['progress', 'kjhtml'],

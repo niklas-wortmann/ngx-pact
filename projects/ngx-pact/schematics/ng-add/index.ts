@@ -8,7 +8,8 @@ import {
   SchematicsException,
   template,
   apply,
-  mergeWith
+  mergeWith,
+  move
 } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import {
@@ -55,17 +56,18 @@ const updateAngularJSON = (options: Schema) => {
         `angular.json configuration for ${options.project} is weird! Architect property is missing`
       );
     }
-
+    const projectRoot = project.root;
+    const projectSrcRoot = project.sourceRoot;
     project['architect']['pact'] = {
       builder: '@angular-devkit/build-angular:karma',
       options: {
-        main: 'src/test.ts',
-        polyfills: 'src/polyfills.ts',
-        tsConfig: 'tsconfig.spec.json',
-        karmaConfig: 'karma.pact.conf.js',
-        assets: ['src/favicon.ico', 'src/assets'],
-        styles: ['src/styles.css'],
-        scripts: ['./node_modules/@pact-foundation/pact-web/pact-web.js']
+        main: `${projectSrcRoot}/test.ts`,
+        polyfills: `${projectSrcRoot}/polyfills.ts`,
+        tsConfig: `${projectRoot}/tsconfig.spec.json`,
+        karmaConfig: `${projectRoot}/karma.pact.conf.js`,
+        assets: [`${projectSrcRoot}/favicon.ico`, `${projectSrcRoot}/assets`],
+        styles: [`${projectSrcRoot}/styles.css`],
+        scripts: [`./node_modules/@pact-foundation/pact-web/pact-web.js`]
       }
     };
     workspace.projects[options.project] = project;
@@ -75,10 +77,13 @@ const updateAngularJSON = (options: Schema) => {
 };
 
 const copyKarmaConf = (options: Schema) => {
-  return () => {
+  return (host: Tree) => {
+    const project = getProject(host, options);
+    const path = project.root;
     const sourceTemplates = url('./files');
     const parameterizedTemplate = apply(sourceTemplates, [
-      template({ ...options, ...strings })
+      template({ ...options, ...strings }),
+      move(path)
     ]);
     return mergeWith(parameterizedTemplate);
   };
