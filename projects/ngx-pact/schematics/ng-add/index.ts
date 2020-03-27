@@ -61,7 +61,7 @@ const updateAngularJSON = (options: Schema) => {
     project['architect']['pact'] = {
       builder: '@angular-devkit/build-angular:karma',
       options: {
-        main: `${projectSrcRoot}/test.ts`,
+        main: `${projectRoot}/pact/test.ts`,
         polyfills: `${projectSrcRoot}/polyfills.ts`,
         tsConfig: `${projectRoot}/tsconfig.spec.json`,
         karmaConfig: `${projectRoot}/karma.pact.conf.js`,
