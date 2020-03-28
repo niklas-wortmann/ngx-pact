@@ -8,6 +8,8 @@ export class TestService {
   constructor(private httpClient: HttpClient) {}
 
   getData(): Observable<any> {
-    return this.httpClient.get('/').pipe(catchError(_ => EMPTY));
+    return this.httpClient
+      .get('http://localhost:1234/test')
+      .pipe(catchError(_ => EMPTY));
   }
 }

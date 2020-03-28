@@ -5,7 +5,7 @@
     "release": "standard-version",
     "build": "tsc -p tsconfig.schematics.json",
     "copy:schemas": "cp --parents schematics/*/schema.json ../../dist/ngx-pact/",
-    "copy:files": "cp --parents -p schematics/*/files/** ../../dist/ngx-pact/",
+    "copy:files": "cp --parents -p -r schematics/*/files/** ../../dist/ngx-pact/",
     "copy:collection": "cp schematics/collection.json ../../dist/ngx-pact/schematics/collection.json",
     "postbuild": "npm run copy:schemas && npm run copy:files && npm run copy:collection"
   },
