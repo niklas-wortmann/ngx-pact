@@ -12,7 +12,8 @@
     "test": "ng test --project ngx-pact",
     "lint": "ng lint --project ngx-pact",
     "commit": "npx git-cz",
-    "test:ng-add": "npm run build && schematics ./dist/ngx-pact/schematics/collection.json:ng-add --debug=false"
+    "test:ng-add": "npm run build && schematics ./dist/ngx-pact/schematics/collection.json:ng-add --debug=false",
+    "test:pact": "ng test --project pact-test"
   },
   "keywords": [],
   "author": "Jan-Niklas Wortmann <6104311+JWO719@users.noreply.github.com>",
