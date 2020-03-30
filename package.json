@@ -41,7 +41,8 @@
   "homepage": "https://niklas-wortmann.com",
   "peerDependencies": {
     "@angular/core": "^8.0.0",
-    "@angular/cli": "^8.0.0"
+    "@angular/cli": "^8.0.0",
+    "@schematics/angular": "^8.0.0"
   },
   "schematics": "./schematics/collection.json",
   "license": "MIT",

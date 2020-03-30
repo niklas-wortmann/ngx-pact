@@ -1,17 +1,17 @@
 import { HttpClientModule } from '@angular/common/http';
-import { TestService } from './test.service';
+import { <%= classify(name) %>Service } from './<%= dasherize(name) %>.service';
 import { TestBed } from '@angular/core/testing';
 import { PactWeb, Interaction } from '@pact-foundation/pact-web';
 
-describe('should test basic interaction', () => {
+describe('<%= classify(name) %>Service Pact', () => {
   let provider: PactWeb;
-  let service: TestService;
+  let service: <%= classify(name) %>Service;
 
   beforeEach(async () => {
     provider = new PactWeb({
-      consumer: 'test',
-      provider: 'test',
-      port: 1234,
+      consumer: '<%= options.consumer %>',
+      provider: '<%= options.provider %>',
+      port: <%= options.port %>,
       cors: true
     });
     const interaction = new Interaction();
@@ -19,18 +19,10 @@ describe('should test basic interaction', () => {
 
     TestBed.configureTestingModule({
       imports: [HttpClientModule],
-      providers: [TestService]
+      providers: [<%= classify(name) %>Service]
     });
+    
     service = TestBed.inject(TestService);
-  });
-
-  it('should work', done => {
-    service.getData().subscribe(data => {
-      expect(data).toEqual({
-        posts: [{ id: 1, title: 'json-server', author: 'typicode' }]
-      });
-      done();
-    });
   });
 
   afterEach(async () => await provider.verify());

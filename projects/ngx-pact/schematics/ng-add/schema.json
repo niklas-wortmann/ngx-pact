@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "SchematicsNgxPact",
+  "id": "SchematicsNgxPactNgAdd",
   "title": "ngx-pact ngAdd Schema",
   "type": "object",
   "properties": {
@@ -21,16 +21,6 @@
       "type": "number",
       "description": "The port of the pact server, defaults to 1234.",
       "default": 1234
-    },
-    "consumer": {
-      "type": "string",
-      "description": "The name of that consumer, defaults to project name",
-      "aliases": ["c"]
-    },
-    "provider": {
-      "type": "string",
-      "description": "The name of the provider, defaults to `some-provider`",
-      "default": "some-provider"
     },
     "dir": {
       "type": "string",

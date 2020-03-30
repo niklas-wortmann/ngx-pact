@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "SchematicsNgxPactService",
+  "title": "ngx-pact ng generate service with pact",
+  "type": "object",
+  "properties": {
+    "withPact": {
+      "type": "boolean",
+      "description": "When true, does create \"pact.spec.ts\" test files for the new service.",
+      "default": false
+    },
+    "port": {
+      "type": "number",
+      "description": "The port of the pact server, defaults to 1234.",
+      "default": 1234
+    },
+    "consumer": {
+      "type": "string",
+      "description": "The name of that consumer, defaults to project name",
+      "aliases": ["c"],
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "provider": {
+      "type": "string",
+      "description": "The name of the provider, defaults to `some-provider`",
+      "default": "some-provider"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the service.",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use for the service?"
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path at which to create the service, relative to the workspace root.",
+      "visible": false
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "flat": {
+      "type": "boolean",
+      "default": true,
+      "description": "When true (the default), creates files at the top level of the project."
+    },
+    "skipTests": {
+      "type": "boolean",
+      "description": "When true, does not create \"spec.ts\" test files for the new service.",
+      "default": false,
+      "x-user-analytics": 12
+    },
+    "lintFix": {
+      "type": "boolean",
+      "default": false,
+      "description": "When true, applies lint fixes after generating the service.",
+      "x-user-analytics": 15
+    }
+  },
+  "required": ["name"]
+}
