@@ -1,26 +1,23 @@
 import {
+  chain,
   Rule,
   SchematicContext,
-  Tree,
-  chain,
-  noop,
-  url,
   SchematicsException,
-  template,
-  apply,
-  mergeWith,
-  move
+  Tree
 } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import {
-  addPactDependencies,
-  addConfigObjectToPackageJson
-} from './utils/package';
+import * as ts from 'typescript';
 import { Schema } from './schema';
-import { getWorkspacePath } from './utils/config';
+import {
+  addConfigObjectToPackageJson,
+  addPactDependencies
+} from './utils/package';
 import { getProject } from './utils/project';
-import { getWorkspace } from './utils/config';
-import { strings } from '@angular-devkit/core';
+import {
+  InsertChange,
+  createChangeRecorder,
+  commitChanges
+} from './utils/change';
 
 const addPactConfigToPackageJSON = ({
   pactBinaryLocation,
@@ -46,58 +43,66 @@ const updatePackageJSON = () => {
   };
 };
 
-const updateAngularJSON = (options: Schema) => {
-  return (host: Tree) => {
-    const project = getProject(host, options);
-    const workspace = getWorkspace(host);
-    const path = getWorkspacePath(host);
-    if (project['architect'] === undefined) {
-      throw new SchematicsException(
-        `angular.json configuration for ${options.project} is weird! Architect property is missing`
-      );
-    }
-    const projectRoot = project.root;
-    const projectSrcRoot = project.sourceRoot;
-    project['architect']['pact'] = {
-      builder: '@angular-devkit/build-angular:karma',
-      options: {
-        main: `${projectRoot}/pact/test.ts`,
-        polyfills: `${projectSrcRoot}/polyfills.ts`,
-        tsConfig: `${projectRoot}/tsconfig.spec.json`,
-        karmaConfig: `${projectRoot}/karma.pact.conf.js`,
-        assets: [`${projectSrcRoot}/favicon.ico`, `${projectSrcRoot}/assets`],
-        styles: [`${projectSrcRoot}/styles.css`],
-        scripts: [`./node_modules/@pact-foundation/pact-web/pact-web.js`]
-      }
-    };
-    workspace.projects[options.project] = project;
-    host.overwrite(path, JSON.stringify(workspace, null, 2));
-    return host;
-  };
-};
-
-const copyKarmaConf = (options: Schema) => {
+const updateKarmaConf = (options: Schema) => {
   return (host: Tree) => {
     const project = getProject(host, options);
     const path = project.root;
-    const sourceTemplates = url('./files');
-    const parameterizedTemplate = apply(sourceTemplates, [
-      template({ ...options, ...strings }),
-      move(path)
-    ]);
-    return mergeWith(parameterizedTemplate);
+    if (!project.architect) {
+      throw new SchematicsException(
+        `angular.json is wrongly configured for ${options.project}`
+      );
+    }
+    const karmaConfigPath = project.architect.test.options.karmaConfig;
+    const karmaConfigBuffer = host.read(karmaConfigPath);
+    if (karmaConfigBuffer === null) {
+      throw new SchematicsException(`Could not find (${karmaConfigPath})`);
+    }
+    const karmaConfig = ts.createSourceFile(
+      'karma.conf.js',
+      karmaConfigBuffer.toString('utf-8'),
+      ts.ScriptTarget.Latest,
+      false,
+      ts.ScriptKind.JS
+    );
+    const moduleStatement = karmaConfig.statements.find(
+      node => node.kind === ts.SyntaxKind.ExpressionStatement
+    );
+    if (moduleStatement) {
+      const [
+        end
+      ] = (moduleStatement as any).expression.right.body.statements.map(
+        (node: any) => {
+          const [bla] = node.expression.arguments.map((prop: any) => {
+            return prop.properties.end;
+          });
+          return bla;
+        }
+      );
+      console.log({ end });
+      const pactConfiguration = `,
+    pact: [
+      {
+        cors: true,
+        port: 1234,
+        log: path.resolve(process.cwd(), 'logs', 'mockserver-integration.log'),
+        dir: path.resolve(process.cwd(), '../../pacts')
+      }
+    ]`;
+      const change = new InsertChange(karmaConfigPath, end, pactConfiguration);
+      commitChanges(host, karmaConfigPath, [change]);
+    }
+    return host;
   };
 };
 
 export function ngAdd(options: Schema): Rule {
   return (tree: Tree, context: SchematicContext) => {
     return chain([
-      options.pactBinaryLocation || options.pactDoNotTrack
-        ? addPactConfigToPackageJSON(options)
-        : noop(),
-      options.skipInstall ? noop() : updatePackageJSON(),
-      options.skipWorkspaceUpdate ? noop() : updateAngularJSON(options),
-      copyKarmaConf(options)
+      // options.pactBinaryLocation || options.pactDoNotTrack
+      //   ? addPactConfigToPackageJSON(options)
+      //   : noop(),
+      // options.skipInstall ? noop() : updatePackageJSON(),
+      updateKarmaConf(options)
     ])(tree, context);
   };
 }

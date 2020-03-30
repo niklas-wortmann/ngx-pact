@@ -28,31 +28,6 @@ describe('ng-add Schematic', () => {
     appTree = await createWorkspace(schematicRunner, appTree);
   });
 
-  it(`should update the angular json by default`, async () => {
-    const options: SchematicOptions = {
-      ...defaultOptions
-    };
-
-    const tree = await schematicRunner
-      .runSchematicAsync('ng-add', options, appTree)
-      .toPromise();
-    const workspace = JSON.parse(tree.readContent('/angular.json'));
-    expect(workspace.projects.bar.architect.pact).toBeDefined();
-  });
-
-  it(`should not update the angular json if configured`, async () => {
-    const options: SchematicOptions = {
-      ...defaultOptions,
-      ...{ skipWorkspaceUpdate: true }
-    };
-
-    const tree = await schematicRunner
-      .runSchematicAsync('ng-add', options, appTree)
-      .toPromise();
-    const workspace = JSON.parse(tree.readContent('/angular.json'));
-    expect(workspace.projects.bar.architect.pact).not.toBeDefined();
-  });
-
   it(`should update the package json by default`, async () => {
     const options: SchematicOptions = {
       ...defaultOptions
