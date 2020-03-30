@@ -1,8 +1,8 @@
 {
   "name": "ngx-pact",
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.0",
   "scripts": {
-    "release": "standard-version",
+    "release": "standard-version --prerelease alpha",
     "build": "tsc -p tsconfig.schematics.json",
     "build:watch": "tsc -p tsconfig.schematics.json -w",
     "copy:schemas": "cp --parents schematics/*/schema.json ../../dist/ngx-pact/",
