@@ -4,13 +4,13 @@ import { Schema } from '../schema';
 import { commitChanges, InsertChange } from './change';
 import { getProject } from './project';
 
-const pactConfiguration = `,
+const pactConfiguration = (options: Schema) => `,
 pact: [
   {
     cors: true,
-    port: 1234,
-    log: path.resolve(process.cwd(), 'logs', 'mockserver-integration.log'),
-    dir: path.resolve(process.cwd(), '../../pacts')
+    port: ${options.port},
+    log: ${options.log},
+    dir: ${options.dir}
   }
 ]`;
 const pactFrameworkConfiguration = `, 'pact'`;
@@ -41,7 +41,7 @@ export const pactifyKarmaConf = (host: Tree, options: Schema) => {
   const pactConfigChange = new InsertChange(
     karmaConfigPath,
     changes.end,
-    pactConfiguration
+    pactConfiguration(options)
   );
   const frameWorkChange = new InsertChange(
     karmaConfigPath,

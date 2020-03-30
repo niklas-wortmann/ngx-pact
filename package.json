@@ -4,7 +4,7 @@
   "description": "Repository for the pact schematics for angular projects.",
   "scripts": {
     "prerelease": "npm run build && npm run copy:licence && npm run copy:readme",
-    "release": "standard-version",
+    "release": "standard-version --prerelease alpha",
     "postrelease": "npm run copy:changelog && npm run copy:package-json && git push --follow-tags origin develop && npm publish ./dist/ngx-pact --tag alpha",
     "ng": "ng",
     "build": "npm run build --prefix ./projects/ngx-pact/",
@@ -34,6 +34,11 @@
   "engines": {
     "node": ">=10.0.0"
   },
+  "bugs": {
+    "url": "https://github.com/niklas-wortmann/ngx-pact/issues",
+    "email": "jwortmann719@gmail.com"
+  },
+  "homepage": "https://niklas-wortmann.com",
   "peerDependencies": {
     "@angular/core": "^8.0.0",
     "@angular/cli": "^8.0.0"
