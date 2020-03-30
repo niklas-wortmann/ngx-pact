@@ -1,10 +1,11 @@
 {
-  "name": "ngx-pact-repo",
-  "version": "1.0.0",
-  "private": true,
+  "name": "ngx-pact",
+  "version": "0.0.4",
   "description": "Repository for the pact schematics for angular projects.",
   "scripts": {
-    "release": "npm run release --prefix ./projects/ngx-pact/",
+    "prerelease": "npm run build && npm run copy:licence && npm run copy:readme",
+    "release": "standard-version",
+    "postrelease": "npm run copy:changelog && npm run copy:package-json && git push --follow-tags origin develop && npm publish ./dist/ngx-pact --tag alpha",
     "ng": "ng",
     "build": "npm run build --prefix ./projects/ngx-pact/",
     "build:watch": "npm run build:watch --prefix ./projects/ngx-pact/",
@@ -13,16 +14,34 @@
     "test": "ng test --project ngx-pact",
     "lint": "ng lint --project ngx-pact",
     "commit": "npx git-cz",
+    "copy:changelog": "cp CHANGELOG.md ./dist/ngx-pact",
+    "copy:package-json": "cp package.json ./dist/ngx-pact",
+    "copy:licence": "cp LICENCE ./dist/ngx-pact",
+    "copy:readme": "cp README.md ./dist/ngx-pact",
     "test:ng-add": "npm run build && schematics ./dist/ngx-pact/schematics/collection.json:ng-add --debug=false",
     "test:pact": "ng test --project pact-test"
   },
-  "keywords": [],
+  "keywords": [
+    "angular",
+    "pact",
+    "consumer-driven",
+    "consumer-driven-contract",
+    "testing",
+    "schematic",
+    "karma"
+  ],
   "author": "Jan-Niklas Wortmann <6104311+JWO719@users.noreply.github.com>",
   "engines": {
     "node": ">=10.0.0"
   },
+  "peerDependencies": {
+    "@angular/core": "^8.0.0",
+    "@angular/cli": "^8.0.0"
+  },
+  "schematics": "./schematics/collection.json",
   "license": "MIT",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "@angular/animations": "~9.0.6",
     "@angular/common": "~9.0.6",
     "@angular/compiler": "~9.0.6",
@@ -37,9 +56,7 @@
     "core-js": "^2.5.4",
     "ngx-semantic-version": "^1.2.1",
     "rxjs": "~6.5.4",
-    "zone.js": "~0.10.3"
-  },
-  "devDependencies": {
+    "zone.js": "~0.10.3",
     "@angular-builders/jest": "^9.0.0",
     "@angular-devkit/build-angular": "~0.900.6",
     "@angular-devkit/schematics-cli": "^0.901.0",
@@ -76,7 +93,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/JWO719/ngx-pact"
+    "url": "https://github.com/niklas-wortmann/ngx-pact"
   },
   "husky": {
     "hooks": {
