@@ -1,7 +1,6 @@
 import {
   chain,
   Rule,
-  SchematicContext,
   Tree,
   externalSchematic,
   noop,
@@ -31,7 +30,7 @@ export const createService = (options: SchemaOptions): Rule => {
       }),
       move(parseName(options.path, options.name).path)
     ]);
-
+    console.log(options.withPact);
     return chain([
       externalSchematic('@schematics/angular', 'service', options),
       options.withPact ? mergeWith(template) : noop()

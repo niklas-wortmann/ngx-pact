@@ -9,9 +9,9 @@ describe('<%= classify(name) %>Service Pact', () => {
 
   beforeEach(async () => {
     provider = new PactWeb({
-      consumer: '<%= options.consumer %>',
-      provider: '<%= options.provider %>',
-      port: <%= options.port %>,
+      consumer: '<%= consumer || project %>',
+      provider: '<%= provider %>',
+      port: <%= port %>,
       cors: true
     });
     const interaction = new Interaction();
