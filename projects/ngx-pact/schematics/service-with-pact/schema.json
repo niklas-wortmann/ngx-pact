@@ -4,10 +4,6 @@
   "title": "ngx-pact ng generate service with pact",
   "type": "object",
   "properties": {
-    "withPact": {
-      "type": "boolean",
-      "description": "When true, does create \"pact.spec.ts\" test files for the new service."
-    },
     "port": {
       "type": "number",
       "description": "The port of the pact server, defaults to 1234.",
