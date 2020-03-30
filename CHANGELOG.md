@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5-alpha.1](https://github.com/niklas-wortmann/ngx-pact/compare/v0.0.5-alpha.0...v0.0.5-alpha.1) (2020-03-30)
+
+
+### Features
+
+* **service:** improve configuration ([3cde1f3](https://github.com/niklas-wortmann/ngx-pact/commit/3cde1f377ad1a52049b21a6389d2e961bc4301f4))
+
 ### [0.0.5-alpha.0](https://github.com/niklas-wortmann/ngx-pact/compare/v0.0.4...v0.0.5-alpha.0) (2020-03-30)
 
 
