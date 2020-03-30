@@ -1,6 +1,6 @@
 {
   "name": "ngx-pact",
-  "version": "0.0.5-alpha.2",
+  "version": "0.0.5-alpha.3",
   "description": "Repository for the pact schematics for angular projects.",
   "scripts": {
     "prerelease": "npm run build && npm run copy:licence && npm run copy:readme",
@@ -41,12 +41,13 @@
   "homepage": "https://niklas-wortmann.com",
   "peerDependencies": {
     "@angular/core": "^8.0.0",
-    "@angular/cli": "^8.0.0",
-    "@schematics/angular": "^8.0.0"
+    "@angular/cli": "^8.0.0"
   },
   "schematics": "./schematics/collection.json",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "@schematics/angular": "^8.0.0"
+  },
   "devDependencies": {
     "@angular/animations": "~9.0.6",
     "@angular/common": "~9.0.6",
