@@ -16,23 +16,34 @@ ng add ngx-pact
 ```
 
 The `ng add` command supports a variety of configuration options. You can find a detailed list in the following section.
+This will also change the `karma.conf.js`, so if you already setup pact for your project just skip this step and add `ngx-pact` as dev dependency.
 
 ### Configuration Options
 
 | Parameter Name      | description                                                                               | default        |
 | ------------------- | ----------------------------------------------------------------------------------------- | -------------- |
 | skipInstall         | Do not add pact packages as devDependency in the package.json                             | false          |
-| skipWorkspaceUpdate | By Default it will generate a pact configuration in the angular.json                      | false          |
 | project             | The name of the project for which you want to add pact                                    | defaultProject |
 | port                | The port of the pact server                                                               | 12345          |
-| consumer            | Name of the consumer                                                                      | project        |
-| provider            | Name of the provider                                                                      | some-provider  |
 | dir                 | The directory of the pact files                                                           | ./pact         |
 | log                 | The directory of the log files                                                            | ''             |
-| pactBinaryLocation  | When you are behind a cooperate proxy you might want to download the pact binary manually |                |  |
+| pactBinaryLocation  | When you are behind a cooperate proxy you might want to download the pact binary manually |                | 
 | pactDoNotTrack      | Pact by default analyze anonymously installations of the pact-node module                 |                |
 
-## Consumer-Driven Contract Testing
+### Generate a pact test
+
+```sh
+ng generate ngx-pact:service --name test
+```
+
+This will generate an angular service called test, with the normal `test.service.spec.ts`, but also a `test.service.pact.spec.ts`.
+It extends the normal service schematic and adds the following configuration options:
+
+| Parameter Name      | description                                                                               | default        |
+| ------------------- | ----------------------------------------------------------------------------------------- | -------------- |
+| port                | The port of the pact server                                                               | 12345          |
+| consumer            | Name of the consumer                                                                      | projectName    |
+| provider            | Name of the provider                                                                      | some-provider  |
 
 ## Development
 
