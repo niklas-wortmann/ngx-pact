@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5-alpha.0](https://github.com/niklas-wortmann/ngx-pact/compare/v0.0.4...v0.0.5-alpha.0) (2020-03-30)
+
+
+### Features
+
+* **package:** bundle package properly ([247ff28](https://github.com/niklas-wortmann/ngx-pact/commit/247ff280f60916e288ac2556c922529b7a84f37e))
+* **pact:** extend service schematic to create a pact test ([0006467](https://github.com/niklas-wortmann/ngx-pact/commit/0006467b3e8e62fb108ca9952ccd2fc5f337cbe9))
+* **service:** finish service schematic ([7dc8a5e](https://github.com/niklas-wortmann/ngx-pact/commit/7dc8a5eec0eac881c1286172a18f6a83b0da57f1))
+
 ### [0.0.4](https://github.com/niklas-wortmann/ngx-pact/compare/v0.0.2-alpha.0...v0.0.4) (2020-03-30)
 
 ### 0.0.2-alpha.0 (2020-03-30)
