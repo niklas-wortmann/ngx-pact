@@ -18,6 +18,7 @@ import {
   createChangeRecorder,
   commitChanges
 } from './utils/change';
+import { CurrencyPipe } from '@angular/common';
 
 const addPactConfigToPackageJSON = ({
   pactBinaryLocation,
@@ -69,16 +70,24 @@ const updateKarmaConf = (options: Schema) => {
     );
     if (moduleStatement) {
       const [
-        end
+        changes
       ] = (moduleStatement as any).expression.right.body.statements.map(
         (node: any) => {
-          const [bla] = node.expression.arguments.map((prop: any) => {
-            return prop.properties.end;
+          const [iteration] = node.expression.arguments.map((prop: any) => {
+            const confKeys = prop.properties.reduce((acc: any, curr: any) => {
+              if (['frameworks', 'plugins'].includes(curr.name.escapedText)) {
+                return {
+                  ...acc,
+                  ...{ [curr.name.escapedText]: curr.initializer.elements.end }
+                };
+              }
+              return acc;
+            }, {});
+            return { ...confKeys, ...{ end: prop.properties.end } };
           });
-          return bla;
+          return iteration;
         }
       );
-      console.log({ end });
       const pactConfiguration = `,
     pact: [
       {
@@ -88,8 +97,30 @@ const updateKarmaConf = (options: Schema) => {
         dir: path.resolve(process.cwd(), '../../pacts')
       }
     ]`;
-      const change = new InsertChange(karmaConfigPath, end, pactConfiguration);
-      commitChanges(host, karmaConfigPath, [change]);
+      const pactFrameworkConfiguration = `, 'pact'`;
+      const pluginConfiguration = `,
+      require('@pact-foundation/karma-pact')`;
+
+      const pactConfigChange = new InsertChange(
+        karmaConfigPath,
+        changes.end,
+        pactConfiguration
+      );
+      const frameWorkChange = new InsertChange(
+        karmaConfigPath,
+        changes.frameworks,
+        pactFrameworkConfiguration
+      );
+      const pluginChange = new InsertChange(
+        karmaConfigPath,
+        changes.plugins,
+        pluginConfiguration
+      );
+      commitChanges(host, karmaConfigPath, [
+        pactConfigChange,
+        frameWorkChange,
+        pluginChange
+      ]);
     }
     return host;
   };
