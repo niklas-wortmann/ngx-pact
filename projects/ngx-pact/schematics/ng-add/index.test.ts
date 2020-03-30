@@ -14,10 +14,7 @@ describe('ng-add Schematic', () => {
   const defaultOptions: SchematicOptions = {
     project: 'bar',
     skipInstall: false,
-    skipWorkspaceUpdate: false,
     port: 1234,
-    consumer: 'bar',
-    provider: 'foo',
     dir: '',
     log: ''
   };

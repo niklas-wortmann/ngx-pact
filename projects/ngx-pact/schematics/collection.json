@@ -7,7 +7,7 @@
       "factory": "./ng-add/index#ngAdd",
       "schema": "./ng-add/schema.json"
     },
-    "pactTest": {
+    "service": {
       "description": "create an angular service with a pact test",
       "factory": "./service-with-pact/index#createService",
       "schema": "./service-with-pact/schema.json"
