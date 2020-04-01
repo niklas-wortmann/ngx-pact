@@ -1,5 +1,8 @@
 # NGX Pact
 
+[![npm](https://img.shields.io/npm/v/ngx-pact.svg)](https://www.npmjs.com/package/ngx-pact)
+[![npm](https://img.shields.io/npm/l/ngx-pact.svg)](https://www.npmjs.com/package/ngx-pact)
+
 Pact is a tool to develop Consumer-Driven Contract Tests. You can find a lot of informations on the [official docs](https://docs.pact.io/) or the [github repository](https://github.com/pact-foundation).
 
 This Angular Schematic supports you in setting up pact for your projects and therefore do Consumer-Driven Contract Testing for your application.
