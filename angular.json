@@ -153,6 +153,114 @@
           }
         }
       }
+    },
+    "pact-test-jest": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/pact-test-jest",
+      "sourceRoot": "projects/pact-test-jest/src",
+      "prefix": "pact-test-jest",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/pact-test-jest",
+            "index": "projects/pact-test-jest/src/index.html",
+            "main": "projects/pact-test-jest/src/main.ts",
+            "polyfills": "projects/pact-test-jest/src/polyfills.ts",
+            "tsConfig": "projects/pact-test-jest/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/pact-test-jest/src/favicon.ico",
+              "projects/pact-test-jest/src/assets"
+            ],
+            "styles": [
+              "projects/pact-test-jest/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/pact-test-jest/src/environments/environment.ts",
+                  "with": "projects/pact-test-jest/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "pact-test-jest:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "pact-test-jest:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "pact-test-jest:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run"
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/pact-test-jest/tsconfig.app.json",
+              "projects/pact-test-jest/tsconfig.spec.json",
+              "projects/pact-test-jest/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/pact-test-jest/e2e/protractor.conf.js",
+            "devServerTarget": "pact-test-jest:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "pact-test-jest:serve:production"
+            }
+          }
+        }
+      }
     }
   },
   "defaultProject": "pact-test"
