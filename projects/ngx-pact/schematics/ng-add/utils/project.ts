@@ -4,6 +4,8 @@ import { experimental } from '@angular-devkit/core';
 
 export type WorkspaceProject = experimental.workspace.WorkspaceProject;
 
+type TestFramework = 'jest' | 'karma';
+
 export function getProject(
   host: Tree,
   options: { project?: string | undefined; path?: string | undefined }
@@ -47,4 +49,13 @@ export function isLib(
   const project = getProject(host, options);
 
   return project.projectType === 'library';
+}
+
+export function getProjetTestFramework(
+  host: Tree,
+  options: { project?: string | undefined; path?: string | undefined }
+): TestFramework {
+  const project = getProject(host, options);
+
+  return project.architect?.test.builder.includes('jest') ? 'jest' : 'karma';
 }

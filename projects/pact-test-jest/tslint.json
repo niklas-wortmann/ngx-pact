@@ -1,0 +1,7 @@
+{
+  "extends": "../../tslint.json",
+  "rules": {
+    "directive-selector": [true, "attribute", "pactTestJest", "camelCase"],
+    "component-selector": [true, "element", "pact-test-jest", "kebab-case"]
+  }
+}

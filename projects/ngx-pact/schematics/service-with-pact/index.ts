@@ -3,7 +3,6 @@ import {
   Rule,
   Tree,
   externalSchematic,
-  noop,
   apply,
   applyTemplates,
   move,

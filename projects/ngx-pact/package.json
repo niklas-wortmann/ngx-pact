@@ -1,18 +1,18 @@
 {
-  "name": "ngx-pact",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "build": "tsc -p tsconfig.schematics.json",
-    "build:watch": "tsc -p tsconfig.schematics.json -w",
-    "copy:schemas": "cp --parents schematics/*/schema.json ../../dist/ngx-pact/",
-    "copy:files": "cp --parents -p -r schematics/*/files/** ../../dist/ngx-pact/",
-    "copy:collection": "cp schematics/collection.json ../../dist/ngx-pact/schematics/collection.json",
-    "postbuild": "npm run copy:schemas && npm run copy:collection && npm run copy:files"
-  },
-  "peerDependencies": {
-    "@angular/common": "^7.2.0",
-    "@angular/core": "^7.2.0"
-  },
-  "schematics": "./schematics/collection.json"
+    "name": "ngx-pact",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "build": "tsc -p tsconfig.schematics.json",
+        "build:watch": "tsc -p tsconfig.schematics.json -w",
+        "copy:schemas": "cpx \"schematics/*/schema.json\" ../../dist/ngx-pact/schematics/",
+        "copy:files": "cpx \"schematics/*/files/**\" ../../dist/ngx-pact/schematics/",
+        "copy:collection": "cpx \"schematics/collection.json\" ../../dist/ngx-pact/schematics/",
+        "postbuild": "npm run copy:schemas && npm run copy:collection && npm run copy:files"
+    },
+    "peerDependencies": {
+        "@angular/common": "^7.2.0",
+        "@angular/core": "^7.2.0"
+    },
+    "schematics": "./schematics/collection.json"
 }

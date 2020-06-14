@@ -1,6 +1,6 @@
 import { Tree, SchematicsException } from '@angular-devkit/schematics';
 
-export function addPactDependencies(host: Tree) {
+export function addPactDependenciesForKarma(host: Tree) {
   addPackageToPackageJson(
     host,
     'devDependencies',
@@ -18,6 +18,22 @@ export function addPactDependencies(host: Tree) {
     'devDependencies',
     '@pact-foundation/pact-web',
     '^9.8.2'
+  );
+  return host;
+}
+
+export function addPactDependenciesForJest(host: Tree) {
+  addPackageToPackageJson(
+    host,
+    'devDependencies',
+    '@pact-foundation/pact',
+    '^9.8.2'
+  );
+  addPackageToPackageJson(
+    host,
+    'devDependencies',
+    'jest-preset-angular',
+    '^8.1.2'
   );
   return host;
 }
