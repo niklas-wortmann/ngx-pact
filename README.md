@@ -8,6 +8,8 @@ Pact is a tool to develop Consumer-Driven Contract Tests. You can find a lot of 
 
 This Angular Schematic supports you in setting up pact for your projects and therefore do Consumer-Driven Contract Testing for your application.
 
+This Schematic supports `karma` as well as `jest` based angular projects.
+
 ## How to use
 
 ### Add the schematics to your project
