@@ -95,7 +95,7 @@
     "ngx-semantic-version": "^1.2.1",
     "prettier": "^1.19.1",
     "rxjs": "~6.5.4",
-    "standard-version": "^7.0.0",
+    "standard-version": "^8.0.1",
     "ts-node": "~8.3.0",
     "tslint": "~5.18.0",
     "typescript": "~3.7.5",
